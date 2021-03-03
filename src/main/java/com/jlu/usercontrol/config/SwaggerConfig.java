@@ -17,7 +17,9 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
 @Configuration
 public class SwaggerConfig {
 
-    public static final String TAG_USER_CONTROLLER = "user-controller";
+//    public static final String TAG_USER_CONTROLLER = "user-controller";
+    public static final String TAG_V1 = "user-control-version-1";
+    public static final String TAG_V2 = "user-control-version-2";
 
     @Bean
     public Docket api(){
@@ -26,7 +28,9 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.jlu.usercontrol"))
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag(TAG_USER_CONTROLLER, "Operations pertaining to User management"))
+//                .tags(new Tag(TAG_USER_CONTROLLER, "Operations pertaining to User management"))
+                .tags(new Tag(TAG_V1, "Operations pertaining to User management, API Version 1"))
+                .tags(new Tag(TAG_V2, "Operations pertaining to User management, API Version 2"))
                 .apiInfo(buildApiInfo())
                 ;
     }

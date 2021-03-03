@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@Api(tags = {SwaggerConfig.TAG_USER_CONTROLLER})
+@Api(tags = {
+//        SwaggerConfig.TAG_USER_CONTROLLER,
+        SwaggerConfig.TAG_V1})
 @RequestMapping(value="/v1")
 public class UserControllerV1 {
 
@@ -27,12 +29,24 @@ public class UserControllerV1 {
 
     @GetMapping("/users")
     @ApiOperation(value = "Get the list of all users, optionally filtered by state", response = User.class, responseContainer = "List")
-    @ApiResponses(@ApiResponse(code = 200, message = "OK - Found list of users"))
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK - Found list of users"),
+            @ApiResponse(code = 404, message = "Not Found - No users found")
+    })
     public ResponseEntity<List<User>> getUsers(@RequestParam(value = "state", required = false) String state) {
+        List<User> foundUsers;
         if (state != null) {
-            return new ResponseEntity<>(userRepository.findByState(state), HttpStatus.OK);
+            foundUsers = userRepository.findByState(state);
+            if(!foundUsers.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(foundUsers, HttpStatus.OK);
         }
-        return new ResponseEntity<>((List<User>) userRepository.findAll(), HttpStatus.OK);
+        foundUsers = (List<User>) userRepository.findAll();
+        if(foundUsers.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(foundUsers, HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
