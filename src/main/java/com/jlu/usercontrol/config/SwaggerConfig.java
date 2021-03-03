@@ -37,8 +37,8 @@ public class SwaggerConfig {
 
     private ApiInfo buildApiInfo() {
         return new ApiInfoBuilder()
-                .title("Menu Items API")
-                .description("REST API for interacting with menu items")
+                .title("User Control API")
+                .description("REST API for interacting with Users")
                 .version("1.0.0")
                 .contact(new Contact("Joshua Luppes", "www.joshualuppes.com", "joshua.luppes@gmail.com"))
                 .license("Apache License Version 2.0")
