@@ -5,6 +5,8 @@ import com.jlu.usercontrol.model.User;
 import com.jlu.usercontrol.repository.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,10 @@ public class UserController {
 
     @PostMapping("/users")
     @ApiOperation(value="Create a new user, pending validation")
+    @ApiResponses(value={
+            @ApiResponse(code=201, message="Created - Successfully created the new user"),
+            @ApiResponse(code=400, message="Bad Request - Supplied User object did not pass validation")
+    })
     public ResponseEntity<Void> createUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         if(userRepository.findById(user.getId()).isPresent()){
             bindingResult.rejectValue("userId", "error.userId", "User Id is already taken");
