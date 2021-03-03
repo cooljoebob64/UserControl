@@ -13,12 +13,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.DocExpansion;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 public class SwaggerConfig {
 
-    public static final String TAG_USERS = "user-controller";
+    public static final String TAG_USER_CONTROLLER = "user-controller";
 
     @Bean
     public Docket api(){
@@ -27,7 +26,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.jlu.usercontrol"))
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag(TAG_USERS, "Operations pertaining to User management"))
+                .tags(new Tag(TAG_USER_CONTROLLER, "Operations pertaining to User management"))
                 .apiInfo(buildApiInfo())
                 ;
     }

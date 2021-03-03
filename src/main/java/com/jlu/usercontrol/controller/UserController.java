@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@Api(tags = {SwaggerConfig.TAG_USERS})
+@Api(tags = {SwaggerConfig.TAG_USER_CONTROLLER})
 public class UserController {
 
     @Autowired
