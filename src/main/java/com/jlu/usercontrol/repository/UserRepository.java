@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    public List<User> findAllByState(String state);
+    public List<User> findByState(String state);
 }
