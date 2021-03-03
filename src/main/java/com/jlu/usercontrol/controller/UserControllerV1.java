@@ -19,7 +19,8 @@ import java.util.Optional;
 
 @RestController
 @Api(tags = {SwaggerConfig.TAG_USER_CONTROLLER})
-public class UserController {
+@RequestMapping(value="/v1")
+public class UserControllerV1 {
 
     @Autowired
     UserRepository userRepository;
@@ -37,15 +38,15 @@ public class UserController {
     @GetMapping("/users/{id}")
     @ApiOperation(value = "Get one particular user by specifying an Id", response = User.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK - Found user with specified Id"),
+            @ApiResponse(code = 200, message = "OK - Found User with specified Id"),
             @ApiResponse(code = 404, message = "Not Found - No User found with the specified Id")
     })
-    public ResponseEntity<Optional<User>> getUserById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
         Optional<User> foundUser = userRepository.findById(id);
         if (foundUser.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(foundUser, HttpStatus.OK);
+        return new ResponseEntity<>(foundUser.get(), HttpStatus.OK);
     }
 
     @PostMapping("/users")
