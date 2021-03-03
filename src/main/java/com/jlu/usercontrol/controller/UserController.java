@@ -1,7 +1,9 @@
 package com.jlu.usercontrol.controller;
 
+import com.jlu.usercontrol.config.SwaggerConfig;
 import com.jlu.usercontrol.model.User;
 import com.jlu.usercontrol.repository.UserRepository;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Api(tags = {SwaggerConfig.TAG_USERS})
 public class UserController {
 
     @Autowired

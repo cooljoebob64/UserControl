@@ -7,12 +7,18 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.DocExpansion;
+import springfox.documentation.swagger.web.UiConfiguration;
+import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 public class SwaggerConfig {
+
+    public static final String TAG_USERS = "user-controller";
 
     @Bean
     public Docket api(){
@@ -21,6 +27,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.jlu.usercontrol"))
                 .paths(PathSelectors.any())
                 .build()
+                .tags(new Tag(TAG_USERS, "Operations pertaining to User management"))
                 .apiInfo(buildApiInfo())
                 ;
     }
@@ -33,6 +40,13 @@ public class SwaggerConfig {
                 .contact(new Contact("Joshua Luppes", "www.joshualuppes.com", "joshua.luppes@gmail.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
+                .build();
+    }
+
+    @Bean
+    UiConfiguration buildUiConfig() {
+        return UiConfigurationBuilder.builder()
+                .docExpansion(DocExpansion.FULL)
                 .build();
     }
 }
