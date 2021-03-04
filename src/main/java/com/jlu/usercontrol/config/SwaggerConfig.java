@@ -49,7 +49,7 @@ public class SwaggerConfig {
     @Bean
     UiConfiguration buildUiConfig() {
         return UiConfigurationBuilder.builder()
-                .docExpansion(DocExpansion.FULL)
+                .docExpansion(DocExpansion.LIST)
                 .build();
     }
 }
